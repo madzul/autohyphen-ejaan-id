@@ -13,7 +13,8 @@ Kebutuhan: Python 3, `patgen` (TeX Live), kamus Hunspell bahasa Indonesia (`id_I
    touch kosong.pat
    patgen sampel.txt kosong.pat id.pat id.tra < p3.txt
    ```
-   Jalankan pada seluruh daftar bila waktu cukup.
+   Pola di paket ini memakai sampel setengah (`NR%2==0`). Sertakan seluruh daftar bila waktu cukup.
+   Untuk menambahkan seluruh kata kamus ke daftar pengecualian, set `MTI_LATIH=latih.txt` sebelum langkah 4.
 4. **Berkas akhir.** Jalankan `python3 finalisasi.py . . id.pat keluaran/`. Perintah ini menghasilkan:
    - `hyph-id-mti.pat`: pola dan pengecualian;
    - `mti-hyph-id.tex`: koreksi untuk pdfLaTeX;
