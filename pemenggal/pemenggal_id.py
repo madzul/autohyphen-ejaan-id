@@ -3,7 +3,7 @@
 """pemenggal-id: sisipkan tanda pemenggal opsional (optional hyphen) ke naskah Word berbahasa Indonesia.
 
 Microsoft Word tidak memiliki pola pemenggalan kata bahasa Indonesia. Skrip ini memenggal kata
-Indonesia dengan pola MTI (hyph-id-mti.pat) dan menyisipkan tanda pemenggal opsional (optional hyphen; Ctrl+- di Word Windows)
+Indonesia dengan pola MTI (hyph-id-mti.pat) dan menyisipkan tanda pemenggal opsional (optional hyphen; Ctrl+Alt+- di Windows, Cmd+Option+- di Mac)
 di titik penggalan. Tanda ini tidak terlihat dan tidak tercetak, kecuali ketika kata benar-benar
 dipenggal di akhir baris.
 

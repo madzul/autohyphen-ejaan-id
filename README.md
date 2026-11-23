@@ -26,8 +26,10 @@ Paket ini membantu naskah tesis yang diketik **rata kiri-kanan (justified) denga
 Akibatnya, mengaktifkan *Hyphenation: Automatic* pada teks berbahasa Indonesia tidak menghasilkan penggalan apa pun, dan paragraf rata kiri-kanan menjadi berspasi renggang. Jalan keluarnya adalah **tanda pemenggal opsional** (*optional hyphen*). Tanda ini tidak terlihat dan hanya tercetak sebagai "-" bila kata terpotong di akhir baris. Alat di folder `pemenggal/` menyisipkan tanda ini ke seluruh naskah secara otomatis.
 
 Untuk menyisipkan satu tanda secara manual:
-- **Windows:** tekan Ctrl+- (Ctrl dan tanda minus).
-- **Mac:** jangan pakai Cmd+-, karena di Word untuk Mac pintasan itu memperkecil tampilan (*zoom out*). Pakai Insert → Advanced Symbol → Special Characters → **Optional Hyphen**. Letak menu ini bisa sedikit berbeda antarversi Word.
+- **Windows:** tekan Ctrl+Alt+- (Ctrl, Alt, dan tanda minus). Di Word versi lama, Ctrl+- juga bisa dipakai.
+- **Mac:** tekan Cmd+Option+- (Cmd, Option, dan tanda minus).
+- Jangan pakai Ctrl+- atau Cmd+- di Word versi baru, karena pintasan itu kini memperkecil tampilan (*zoom out*).
+- Bila pintasan tidak bekerja, pakai menu Insert → Advanced Symbol → Special Characters → **Optional Hyphen**, atau buat pintasan sendiri lewat *Customize Keyboard*. Letak menu ini bisa sedikit berbeda antarversi Word.
 
 ### 1.1 Pengaturan Word (sudah terpasang di templat)
 
