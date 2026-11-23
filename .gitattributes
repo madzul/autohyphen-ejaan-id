@@ -1,0 +1,6 @@
+*.dotx binary
+*.oxt binary
+*.pdf binary
+*.png binary
+*.zip binary
+*.dic -text

@@ -1,0 +1,180 @@
+%% mti-biblatex.sty
+%% Gaya pustaka nama-tahun MTI UnLa (Bab VI dan Lampiran Q Pedoman Penulisan Tesis 2026)
+%% di atas biblatex authoryear-comp. Dimuat otomatis oleh mti-unla.cls.
+%%   Dalam teks : (Hill, 2007), Gao dan Zhao (2009), (Kramer dkk., 2005),
+%%                (Baker dkk., 1998: 23--25), (Culver dkk., 2003a, 2003b)
+%%   Daftar     : Cotton, F. A. (1998): Judul artikel, \emph{Nama Jurnal}, \textbf{54}, 38--43.
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{mti-biblatex}[2026/11/23 v1.0 Gaya pustaka MTI UnLa]
+\RequirePackage{needspace}
+
+\DeclareLanguageMapping{indonesian}{indonesian}
+
+%% ---- nama
+\DeclareNameAlias{sortname}{family-given}
+\DeclareNameAlias{default}{family-given}
+\DeclareNameAlias{editor}{family-given}
+\DeclareDelimFormat{multinamedelim}{\addcomma\space}
+\DeclareDelimFormat[bib]{finalnamedelim}{%
+  \ifnumgreater{\value{liststop}}{2}{\addcomma}{}\addspace\bibstring{and}\space}
+\DeclareDelimFormat[textcite,parencite,cite]{finalnamedelim}{\addspace\bibstring{and}\space}
+\DeclareDelimFormat{andothersdelim}{\addspace}
+\DeclareDelimFormat{revsdnamepunct}{\addcomma}
+
+%% ---- kutipan dalam teks
+\DeclareDelimFormat{nameyeardelim}{\addcomma\space}
+\DeclareDelimFormat[textcite]{nameyeardelim}{\addspace}
+\DeclareDelimFormat{postnotedelim}{\addcolon\space}
+\DeclareFieldFormat{postnote}{\mknormrange{#1}}
+\DeclareFieldFormat{multipostnote}{\mknormrange{#1}}
+\renewcommand*{\compcitedelim}{\addcomma\space}
+%% tahun sama dari penulis sama ditulis lengkap: 2003a, 2003b
+\renewbibmacro*{cite:extradate}{%
+  \setunit{\addcomma\space}\printtext[bibhyperref]{\printlabeldateextra}}
+
+%% ---- format medan
+\DeclareFieldFormat*{title}{#1}
+\DeclareFieldFormat[book,thesis,report,manual,booklet,proceedings,collection,mvbook]{title}{\mkbibemph{#1}}
+\DeclareFieldFormat*{journaltitle}{\mkbibemph{#1}}
+\DeclareFieldFormat*{booktitle}{\mkbibemph{#1}}
+\DeclareFieldFormat*{volume}{\mkbibbold{#1}}
+\DeclareFieldFormat*{pages}{\mknormrange{#1}}
+\DeclareFieldFormat{doi}{\url{https://doi.org/#1}}
+\DeclareFieldFormat{url}{\url{#1}}
+\DeclareFieldFormat{urldate}{\bibstring{urlseen}\space#1}
+\DeclareFieldFormat{edition}{\ifinteger{#1}{\bibstring{edition}\space\mkbibordinal{#1}}{#1}}
+\DeclareFieldFormat{type}{#1}
+\DeclareFieldFormat{titleaddon}{\mkbibparens{#1}}
+
+%% ---- awal entri: Nama (tahun):
+\newbibmacro*{mti:awal}{%
+  \usebibmacro{bibindex}%
+  \ifnameundef{author}
+    {\ifnameundef{editor}
+       {\iflistundef{organization}
+          {\printfield{title}\clearfield{title}}
+          {\printlist{organization}}}
+       {\printnames{editor}\setunit{\addspace}\printtext[parens]{\bibstring{editor}}}}
+    {\printnames{author}%
+     \iffieldundef{authortype}{}{\setunit{\addspace}\printtext[parens]{\printfield{authortype}}}}%
+  \setunit{\addspace}%
+  \iffieldequalstr{entrysubtype}{newspaper}
+    {\printtext[parens]{\mkbibdatelong{year}{month}{day}\printfield{extradate}}}
+    {\printtext[parens]{\printdateextra}}%
+  \setunit{\addcolon\space}}
+\DeclareFieldFormat{authortype}{#1}
+
+\newbibmacro*{mti:akhir}{%
+  \setunit{\addcomma\space}%
+  \iffieldundef{doi}
+    {\iffieldundef{url}{}
+       {\printfield{url}%
+        \iffieldundef{urlyear}{}{\setunit{\addperiod\space}\printurldate}}}
+    {\setunit{\addperiod\space}\printfield{doi}}%
+  \usebibmacro{finentry}}
+
+\newbibmacro*{mti:penerbit}{%
+  \printlist{publisher}\setunit{\addcomma\space}\printlist{location}}
+
+\DeclareBibliographyDriver{article}{%
+  \usebibmacro{mti:awal}%
+  \printfield{title}\setunit{\addcomma\space}%
+  \printfield{journaltitle}\setunit{\addcomma\space}%
+  \printfield{volume}\setunit{\addcomma\space}%
+  \iffieldequalstr{entrysubtype}{newspaper}
+    {\iffieldundef{pages}{}{\printtext{\bibstring{page}}\setunit{\addspace}\printfield{pages}}}
+    {\iffieldundef{pages}{\printfield{eid}}{\printfield{pages}}}%
+  \usebibmacro{mti:akhir}}
+
+\DeclareBibliographyDriver{book}{%
+  \usebibmacro{mti:awal}%
+  \printfield{title}\setunit{\addcomma\space}%
+  \printfield{edition}\setunit{\addcomma\space}%
+  \usebibmacro{mti:penerbit}\setunit{\addcomma\space}%
+  \printfield{pages}%
+  \usebibmacro{mti:akhir}}
+\DeclareBibliographyAlias{mvbook}{book}
+\DeclareBibliographyAlias{booklet}{book}
+\DeclareBibliographyAlias{manual}{report}
+
+\DeclareBibliographyDriver{incollection}{%
+  \usebibmacro{mti:awal}%
+  \printfield{title}\setunit{\addcomma\space}%
+  \printfield{pages}\setunit{\addspace}%
+  \printtext{\bibstring{in}}\setunit{\addspace}%
+  \ifnameundef{editor}{}{\printnames{editor}\setunit{\addcomma\space}\printtext{ed\adddot}}%
+  \setunit{\addcomma\space}\printfield{booktitle}\setunit{\addcomma\space}%
+  \printfield{edition}\setunit{\addcomma\space}%
+  \usebibmacro{mti:penerbit}%
+  \usebibmacro{mti:akhir}}
+\DeclareBibliographyAlias{inbook}{incollection}
+
+\DeclareBibliographyDriver{inproceedings}{%
+  \usebibmacro{mti:awal}%
+  \printfield{title}\setunit{\addcomma\space}%
+  \printfield{booktitle}\setunit{\addcomma\space}%
+  \printfield{eventtitle}\setunit{\addcomma\space}%
+  \printfield{venue}\setunit{\addcomma\space}%
+  \ifnameundef{editor}{}{\printnames{editor}\setunit{\addcomma\space}\printtext{ed\adddot}}%
+  \setunit{\addcomma\space}%
+  \usebibmacro{mti:penerbit}\setunit{\addcomma\space}%
+  \printfield{pages}%
+  \usebibmacro{mti:akhir}}
+
+\DeclareBibliographyDriver{thesis}{%
+  \usebibmacro{mti:awal}%
+  \printfield{title}\setunit{\addcomma\space}%
+  \iffieldundef{type}{}{\iffieldbibstring{type}{\bibstring{\thefield{type}}}{\printfield{type}}}%
+  \setunit{\addcomma\space}\printlist{institution}%
+  \setunit{\addcomma\space}\printfield{pages}%
+  \usebibmacro{mti:akhir}}
+
+\DeclareBibliographyDriver{report}{%
+  \usebibmacro{mti:awal}%
+  \printfield{title}\setunit{\addcomma\space}%
+  \printfield{type}\setunit{\addspace}\printfield{number}\setunit{\addcomma\space}%
+  \printlist{institution}\setunit{\addcomma\space}\printlist{location}%
+  \setunit{\addcomma\space}\printfield{pages}%
+  \usebibmacro{mti:akhir}}
+
+\DeclareBibliographyDriver{online}{%
+  \usebibmacro{mti:awal}%
+  \printfield{title}\setunit{\addspace}\printfield{titleaddon}%
+  \setunit{\addspace}\iffieldundef{type}{}{\setunit{\addspace}\printtext[brackets]{\printfield{type}}}%
+  \setunit{\addcomma\space}\printlist{publisher}%
+  \usebibmacro{mti:akhir}}
+\DeclareBibliographyAlias{software}{online}
+
+\DeclareBibliographyDriver{misc}{%
+  \usebibmacro{mti:awal}%
+  \printfield{title}\setunit{\addspace}%
+  \iffieldundef{type}{}{\setunit{\addspace}\printtext[brackets]{\printfield{type}}}%
+  \setunit{\addcomma\space}\printfield{howpublished}%
+  \setunit{\addcomma\space}\usebibmacro{mti:penerbit}%
+  \setunit{\addcomma\space}\printfield{pages}%
+  \usebibmacro{mti:akhir}}
+\DeclareBibliographyAlias{movie}{misc}
+\DeclareBibliographyAlias{video}{misc}
+\DeclareBibliographyAlias{*}{misc}
+
+%% ---- daftar pustaka: 1 spasi, gantung 1,27 cm, satu baris kosong antarpustaka
+\setlength{\bibhang}{1.27cm}
+\setlength{\bibitemsep}{\baselineskip}
+\AtBeginBibliography{\singlespacing\setlength{\bibitemsep}{12pt}\raggedright\hyphenpenalty=10000\relax}
+\defbibheading{mti}[\bibname]{\judulbagian{#1}}
+\defbibheading{mtisub}[]{\par\needspace{4\baselineskip}\vspace{6pt}\noindent #1\par\nopagebreak\vspace{6pt}}
+
+%% \cetakdaftarpustaka: judul DAFTAR PUSTAKA dan kelompok sesuai Subbab VI.2
+%% (kelompok kosong tidak dicetak). Tandai rujukan surat kabar dengan
+%% entrysubtype = {newspaper}, film/televisi dengan @movie atau @video,
+%% dan situs internet dengan @online.
+\DeclareBibliographyCategory{mti@daring}
+\newcommand{\cetakdaftarpustaka}{%
+  \printbibheading[heading=mti]%
+  \printbibliography[heading=none,nottype=online,nottype=software,nottype=movie,nottype=video,
+    notsubtype=newspaper]%
+  \printbibliography[heading=mtisub,title={Daftar Pustaka dari Surat Kabar:},subtype=newspaper]%
+  \printbibliography[heading=mtisub,title={Daftar Pustaka dari Film atau Televisi:},type=movie]%
+    \printbibliography[heading=mtisub,title={Daftar Pustaka dari Situs Internet:},category=mti@daring]}
+\AtDataInput{\ifboolexpr{test {\ifentrytype{online}} or test {\ifentrytype{software}}}{\addtocategory{mti@daring}{\thefield{entrykey}}}{}}
+\endinput

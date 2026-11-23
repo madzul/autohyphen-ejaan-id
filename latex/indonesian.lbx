@@ -1,0 +1,54 @@
+\ProvidesFile{indonesian.lbx}[2026/11/23 v1.0 Bahasa Indonesia untuk biblatex (templat MTI UnLa)]
+% biblatex belum memiliki berkas bahasa Indonesia; berkas ini menyediakan istilah dasar.
+\DeclareRedundantLanguages{indonesian}{indonesian,bahasai,bahasa}
+\InheritBibliographyExtras{english}
+\DeclareBibliographyExtras{%
+  \let\finalandcomma=\empty
+  \let\finalandsemicolon=\empty
+  \protected\def\mkbibdatelong#1#2#3{%
+    \iffieldundef{#3}{}{\stripzeros{\thefield{#3}}\iffieldundef{#2}{}{\nobreakspace}}%
+    \iffieldundef{#2}{}{\mkbibmonth{\thefield{#2}}\iffieldundef{#1}{}{\space}}%
+    \iffieldbibstring{#1}{\bibstring{\thefield{#1}}}{\dateeraprintpre{#1}\stripzeros{\thefield{#1}}}}%
+  \protected\def\mkbibordinal#1{ke-\stripzeros{#1}}%
+  \protected\def\mkbibmascord{\mkbibordinal}%
+  \protected\def\mkbibfemord{\mkbibordinal}%
+  \protected\def\mkbibneutord{\mkbibordinal}}
+\DeclareBibliographyStrings{%
+  inherit          = {english},
+  bibliography     = {{DAFTAR PUSTAKA}{DAFTAR PUSTAKA}},
+  references       = {{DAFTAR PUSTAKA}{DAFTAR PUSTAKA}},
+  and              = {{dan}{dan}},
+  andothers        = {{dkk\adddot}{dkk\adddot}},
+  andmore          = {{dkk\adddot}{dkk\adddot}},
+  editor           = {{penyunting}{ed\adddot}},
+  editors          = {{penyunting}{ed\adddot}},
+  byeditor         = {{disunting oleh}{disunting oleh}},
+  edition          = {{edisi}{ed\adddot}},
+  in               = {{dalam}{dalam}},
+  volume           = {{volume}{vol\adddot}},
+  number           = {{nomor}{no\adddot}},
+  page             = {{halaman}{hal\adddot}},
+  pages            = {{halaman}{hal\adddot}},
+  chapter          = {{bab}{bab}},
+  version          = {{versi}{versi}},
+  urlseen          = {{Diakses}{Diakses}},
+  urlfrom          = {{tersedia di}{tersedia di}},
+  mathesis         = {{Tesis Program Magister}{Tesis Program Magister}},
+  phdthesis        = {{Disertasi Program Doktor}{Disertasi Program Doktor}},
+  techreport       = {{Laporan teknis}{Laporan teknis}},
+  nodate           = {{tanpa tahun}{t\adddot t\adddot}},
+  january          = {{Januari}{Januari}},
+  february         = {{Februari}{Februari}},
+  march            = {{Maret}{Maret}},
+  april            = {{April}{April}},
+  may              = {{Mei}{Mei}},
+  june             = {{Juni}{Juni}},
+  july             = {{Juli}{Juli}},
+  august           = {{Agustus}{Agustus}},
+  september        = {{September}{September}},
+  october          = {{Oktober}{Oktober}},
+  november         = {{November}{November}},
+  december         = {{Desember}{Desember}},
+  langenglish      = {{bahasa Inggris}{bahasa Inggris}},
+}
+\endinput

@@ -1,0 +1,10 @@
+Uji pemenggalan terhadap acuan kaidah EYD V (kata yang memuat titik penggalan salah)
+
+Pola TeX hyph-id (bawaan babel): 4098 dari 20053 kata (20.4%), bobot frekuensi 9.3%; contoh: ak-an, buk-an, me-la-kuk-an, bul-an, mak-an, me-ru-pak-an, tem-an, jal-an, tuh-an, meng-gu-nak-an
+Pola TeX hyph-id + mti-hyph-id.tex: 0 dari 20053 kata (0.0%), bobot frekuensi 0.0%; contoh: 
+Pola LibreOffice hyph_id_ID: 2069 dari 20053 kata (10.3%), bobot frekuensi 5.0%; contoh: de-ng-an, me-mi-l-iki, ing-in, se-lu-r-uh, ma-sya-ra-k-at, bel-a-jar, su-l-it, be-ru-bah, me-mi-l-ih, ka-p-an
+Pola autohyphen-id (hyph_id_ID-baku.dic): 2644 dari 20053 kata (13.2%), bobot frekuensi 5.0%; contoh: be-ra-da, pe-ru-sa-ha-an, be-rar-ti, te-ra-khir, ke-hi-du-pan, be-ru-bah, hu-bu-ngan, ala-san, ke-sem-pa-tan, me-ngam-bil
+Pola MTI tanpa pengecualian: 267 dari 20053 kata (1.3%), bobot frekuensi 0.9%; contoh: ja-ng-an, bad-an, kap-an, ber-i-ta, pes-an, be-r-at, hu-t-an, ka-n-an, ber-u-pa, za-m-an
+Pola MTI + pengecualian: 0 dari 20053 kata (0.0%), bobot frekuensi 0.0%; contoh: 
+
+pola: 30560, pengecualian MTI: 268, pengecualian pdfLaTeX: 4098
