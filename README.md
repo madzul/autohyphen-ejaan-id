@@ -23,7 +23,11 @@ Paket ini membantu naskah tesis yang diketik **rata kiri-kanan (justified) denga
 - [Editor's spelling, grammar, and refinement availability by language](https://support.microsoft.com/office/editor-s-spelling-grammar-and-refinement-availability-by-language-ecd60e9f-6b2e-4070-b30c-42efa6cff55a)
 - [Companion proofing languages](https://learn.microsoft.com/en-us/office/2016/language/companion-proofing-languages)
 
-Akibatnya, mengaktifkan *Hyphenation: Automatic* pada teks berbahasa Indonesia tidak menghasilkan penggalan apa pun, dan paragraf rata kiri-kanan menjadi berspasi renggang. Jalan keluarnya adalah **tanda pemenggal opsional** (*optional hyphen*, Ctrl+- di Windows, Cmd+- di Mac). Tanda ini tidak terlihat dan hanya tercetak sebagai "-" bila kata terpotong di akhir baris. Alat di folder `pemenggal/` menyisipkan tanda ini ke seluruh naskah secara otomatis.
+Akibatnya, mengaktifkan *Hyphenation: Automatic* pada teks berbahasa Indonesia tidak menghasilkan penggalan apa pun, dan paragraf rata kiri-kanan menjadi berspasi renggang. Jalan keluarnya adalah **tanda pemenggal opsional** (*optional hyphen*). Tanda ini tidak terlihat dan hanya tercetak sebagai "-" bila kata terpotong di akhir baris. Alat di folder `pemenggal/` menyisipkan tanda ini ke seluruh naskah secara otomatis.
+
+Untuk menyisipkan satu tanda secara manual:
+- **Windows:** tekan Ctrl+- (Ctrl dan tanda minus).
+- **Mac:** jangan pakai Cmd+-, karena di Word untuk Mac pintasan itu memperkecil tampilan (*zoom out*). Pakai Insert → Advanced Symbol → Special Characters → **Optional Hyphen**. Letak menu ini bisa sedikit berbeda antarversi Word.
 
 ### 1.1 Pengaturan Word (sudah terpasang di templat)
 
@@ -34,12 +38,17 @@ Bila tidak memakai templat, atur sendiri:
 | Bahasa naskah | Indonesian | Review → Language → Set Proofing Language |
 | Perataan | Justify | Home → Paragraph |
 | Pemenggalan | Automatic | Layout → Hyphenation → Automatic |
-| Zona pemenggalan | 0,63 cm | Layout → Hyphenation → Hyphenation Options → Hyphenation zone |
+| Zona pemenggalan | 0,63 cm (abu-abu untuk teks Indonesia, lihat catatan) | Layout → Hyphenation → Hyphenation Options → Hyphenation zone |
 | Batas tanda hubung berurutan | 2 | Hyphenation Options → Limit consecutive hyphens to |
 | Kata berhuruf kapital | tidak dipenggal | Hyphenation Options → hapus centang *Hyphenate words in CAPS* |
 | Judul, tabel, URL, kode | tidak dipenggal | Format → Paragraph → Line and Page Breaks → *Don't hyphenate* |
 
-Di Word untuk Mac, menu pemenggalan ada di Tools → Hyphenation. *Automatic* tetap berguna untuk istilah asing yang diberi bahasa English, sedangkan teks Indonesia dipenggal oleh tanda pemenggal opsional.
+**Catatan *Hyphenation Options*.** Bila bahasa teks yang dipilih adalah Indonesian, pilihan *Hyphenation zone* tampak abu-abu (tidak aktif). Ini wajar, karena Word tidak punya pemenggal bahasa Indonesia, dan pilihan ini tidak perlu diatur.
+- Templat sudah menyimpan nilai zona 0,63 cm, batas 2, dan *Hyphenate words in CAPS* mati.
+- Ketiga nilai itu hanya dipakai pemenggalan otomatis Word, yaitu untuk istilah asing yang diberi bahasa English.
+- Tanda pemenggal opsional pada teks Indonesia tetap bekerja, apa pun pengaturan *Hyphenation*-nya.
+
+Di Word untuk Mac versi lama, menu pemenggalan ada di Tools → Hyphenation.
 
 Pastikan paket bahasa Indonesia untuk pemeriksa ejaan terpasang. Bila belum, pasang lewat [Language Accessory Pack](https://support.microsoft.com/en-US/office/languages/language-accessory-pack-for-microsoft-365).
 
