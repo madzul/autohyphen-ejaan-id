@@ -114,26 +114,40 @@ Zotero: Settings → Cite → Styles → tombol **+** → pilih `mti-unla.csl`. 
 
 Pola bawaan yang ada untuk bahasa Indonesia banyak salah, misalnya pola TeX/babel memenggal *buk-an*, *me-la-kuk-an*, *mak-an*, dan pola bawaan LibreOffice memenggal *de-ng-an*, *me-mi-l-iki*. Paket ini menyediakan dua pola pengganti:
 
-1. **Pola MTI UnLa** (`hyph-id-mti.pat`, `hyph_id_ID_MTI.dic`; bawaan semua alat). Dibangkitkan dengan `patgen` dari sekitar satu juta kata (kata dasar kamus Hunspell bahasa Indonesia beserta bentuk berimbuhannya) yang dipenggal oleh penganalisis kaidah EYD Edisi V:
+1. **Pola gabungan MTI UnLa** (`hyph-id-mti.pat`, `hyph_id_ID_MTI.dic`; bawaan semua alat). Pola ini menggabungkan kaidah suku kata autohyphen-id dengan analisis imbuhan. Dibangkitkan dengan `patgen` dari sekitar 1,8 juta kata (kata dasar kamus Hunspell bahasa Indonesia beserta bentuk berimbuhannya) yang dipenggal oleh penganalisis kaidah EYD Edisi V, lalu dilengkapi daftar pengecualian berisi ±12.800 kata kamus yang masih salah atau kurang dipenggal oleh pola, sehingga semua kata dalam kamus dipenggal sesuai acuan. Kaidahnya:
    - kata dasar per suku kata: *ba-ca*, *Ap-ril*, *put-ra*, *ag-re-si* (dua konsonan di tengah kata dipisah), *in-stru-men*, *ul-tra* (tiga konsonan dipisah setelah yang pertama), *eks-pe-ri-men*, *trans-por-ta-si*; diftong *ai, au, ei, oi* utuh (*pan-tai*, *pu-lau*) kecuali sebelum konsonan penutup (*ba-ik*, *la-ut*);
    - kata berimbuhan dipenggal di antara unsurnya: *ber-a-da*, *meng-a-na-li-sis*, *ma-kan-an*, *ha-rap-an*, *ke-cer-das-an*, *pem-be-la-jar-an*;
    - bentuk dasar yang luluh dipenggal seperti kata dasar (Catatan EYD V): *pe-ne-li-ti-an*, *pe-ngem-bang-an*, *me-ne-rap-kan*, *pem-ro-gram-an*.
 2. **Pola autohyphen-id** (`hyph_id_ID-baku.dic`, `hyph-id-baku.tex`, berkas asli di `pola/autohyphen-id/`, lisensi CC0). Disusun dari kaidah suku kata ditambah ±30 pengecualian kata berimbuhan. Kaidah suku katanya rapi (pola MTI memperbaiki penanganan gugus konsonan berdasarkan pola ini), tetapi tanpa analisis imbuhan sehingga sebagian besar kata berakhiran *-an* dan berawalan *ber-/ter-/meng-* sebelum vokal dipenggal secara fonetis (*ha-ra-pan*, *ke-se-ha-tan*, *be-ra-da*, *te-ra-khir*). Pola ini juga memenggal *peng-em-bang-an*, padahal menurut Catatan EYD V bentuk dasar yang luluh dipenggal *pe-ngem-bang-an*.
 
+   Untuk kasus yang berbeda konvensi, pola gabungan mengikuti EYD V. Kata berimbuhan dipenggal di antara bentuk dasar dan imbuhannya, seperti contoh EYD V *ber-ja-lan*, *di-am-bil*, dan *ma-kan-an*. Karena itu pola gabungan memakai *ha-rap-an*, *ber-a-da*, dan *peng-u-ji-an*, bukan *ha-ra-pan*, *be-ra-da*, dan *pe-ngu-ji-an*. Pengecualiannya adalah bentuk dasar yang luluh: menurut Catatan EYD V bentuk itu dipenggal seperti kata dasar, seperti contoh *me-nu-tup* dan *pe-nga-rang*. Karena itu pola gabungan memakai *pe-ngem-bang-an*, bukan *peng-em-bang-an*.
+
 Ekstensi LibreOffice `id_hyph_baku.oxt` dari autohyphen-id dan `pemenggalan-ejaan-id-mti.oxt` sama-sama mendaftarkan pemenggal untuk bahasa Indonesia; pasang salah satu saja.
 
-Hasil uji terhadap ±20.000 kata Indonesia tersering yang akarnya dikenal kamus, dibandingkan dengan penggalan menurut kaidah di atas (persentase kata yang memuat sedikitnya satu titik penggalan salah; bobot frekuensi = seberapa sering kata salah itu muncul dalam teks):
+**Uji di luar sampel.** Berikut hasil pada 20.000 bentuk kata yang tidak dipakai melatih pola dan tidak termasuk 40.000 kata tersering, sebagian besar kata berimbuhan yang jarang muncul. Angkanya adalah persentase kata yang memuat sedikitnya satu titik penggalan salah, dengan pola saja tanpa daftar pengecualian. Uji ini mengukur seberapa baik pola menebak kata baru di luar kamus.
+
+| Pola | Kata salah |
+|---|---|
+| Pola TeX hyph-id (bawaan babel) | 37,9% |
+| Pola LibreOffice hyph_id_ID | 35,5% |
+| Pola autohyphen-id | 28,7% |
+| Pola MTI versi pertama (data latih ¼) | 0,55% |
+| **Pola gabungan MTI** (data latih ½) | **0,48%** |
+
+Sebagian besar sisa kesalahan berasal dari bentuk yang jarang dipakai dan ambigu, misalnya *meng-ong-kang-nya*, *per-lis-trik-an*, dan *mem-pe-ra-ngin-ku*.
+
+**Uji pada kata tersering.** Hasil uji terhadap ±20.000 kata Indonesia tersering yang akarnya dikenal kamus, dibandingkan dengan penggalan menurut kaidah di atas (persentase kata yang memuat sedikitnya satu titik penggalan salah; bobot frekuensi = seberapa sering kata salah itu muncul dalam teks):
 
 | Pola | Kata salah | Bobot frekuensi |
 |---|---|---|
-| Pola TeX hyph-id (bawaan babel) | 20,4% (4098 dari 20053) | 9,3% |
+| Pola TeX hyph-id (bawaan babel) | 20,4% (4096 dari 20053) | 9,3% |
 | Pola TeX hyph-id + mti-hyph-id.tex | 0,0% (0 dari 20053) | 0,0% |
-| Pola LibreOffice hyph_id_ID | 10,3% (2069 dari 20053) | 5,0% |
-| Pola autohyphen-id (hyph_id_ID-baku.dic) | 13,2% (2644 dari 20053) | 5,0% |
-| Pola MTI tanpa pengecualian | 1,3% (267 dari 20053) | 0,9% |
+| Pola LibreOffice hyph_id_ID | 10,3% (2064 dari 20053) | 5,0% |
+| Pola autohyphen-id (hyph_id_ID-baku.dic) | 13,2% (2643 dari 20053) | 4,9% |
+| Pola MTI tanpa pengecualian | 0,9% (176 dari 20053) | 0,3% |
 | Pola MTI + pengecualian | 0,0% (0 dari 20053) | 0,0% |
 
-Angka 0% untuk pola dengan pengecualian adalah hasil pada kata yang sama dengan yang dipakai menyusun daftar pengecualian, jadi bukan ukuran untuk kata di luar daftar itu. Acuan uji ini adalah penganalisis kaidah yang juga dipakai melatih pola MTI, sehingga perbandingannya menguntungkan pola MTI. Sebagai pembanding, pada daftar uji milik autohyphen-id (`pola/autohyphen-id/test_hyph.py`, 108 kata; 5 kata seperti *a-ir* dan *di-a* tidak dapat dibandingkan karena paket ini tidak menyisakan satu huruf di tepi kata) pola MTI cocok pada 97 dari 103 kata. Keenam perbedaannya adalah soal konvensi, bukan penggalan yang melanggar suku kata: *eks-tra*/*ek-stra*, *eks-pe-ri-men*/*ek-spe-ri-men*, *per-a-tur-an*/*pe-ra-tur-an*, *peng-u-ji-an*/*pe-ngu-ji-an*, *ha-rap-an*/*ha-ra-pan*, dan *pe-ngem-bang-an*/*peng-em-bang-an* (bentuk pertama adalah pola MTI). Rincian ada di `pola/laporan.txt`. Bila menemukan kata yang salah dipenggal, laporkan lewat *issue* di repositori agar dimasukkan ke daftar pengecualian.
+Angka 0% untuk pola dengan pengecualian adalah hasil pada kata yang sama dengan yang dipakai menyusun daftar pengecualian, jadi bukan ukuran untuk kata di luar daftar itu; ukuran untuk kata di luar kamus adalah uji di luar sampel di atas. Acuan uji ini adalah penganalisis kaidah yang juga dipakai melatih pola MTI, sehingga perbandingannya menguntungkan pola MTI. Sebagai pembanding, pada daftar uji milik autohyphen-id (`pola/autohyphen-id/test_hyph.py`, 108 kata; 5 kata seperti *a-ir* dan *di-a* tidak dapat dibandingkan karena paket ini tidak menyisakan satu huruf di tepi kata) pola MTI cocok pada 97 dari 103 kata. Keenam perbedaannya adalah soal konvensi, bukan penggalan yang melanggar suku kata: *eks-tra*/*ek-stra*, *eks-pe-ri-men*/*ek-spe-ri-men*, *per-a-tur-an*/*pe-ra-tur-an*, *peng-u-ji-an*/*pe-ngu-ji-an*, *ha-rap-an*/*ha-ra-pan*, dan *pe-ngem-bang-an*/*peng-em-bang-an* (bentuk pertama adalah pola MTI). Rincian ada di `pola/laporan.txt`. Bila menemukan kata yang salah dipenggal, laporkan lewat *issue* di repositori agar dimasukkan ke daftar pengecualian.
 
 ## 7. Lisensi
 

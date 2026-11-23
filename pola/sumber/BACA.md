@@ -7,13 +7,13 @@ Kebutuhan: Python 3, `patgen` (TeX Live), kamus Hunspell bahasa Indonesia (`id_I
    - `forms_clean.txt`: hasil `unmunch id_ID.dic id_ID.aff`, huruf kecil a-z saja.
    - `gen_forms.txt`: bentuk berimbuhan tambahan, dibuat dengan `python3 gen.py > gen_forms.txt`.
 2. **Daftar latih.** Jalankan `python3 mkset.py .` untuk memenggal semua kata dengan `aturan_id.py`, yaitu penganalisis kaidah EYD V. Hasilnya `latih.txt`.
-3. **Pola.** Siapkan sampel seperempat kata dan latih polanya:
+3. **Pola.** Siapkan sampel setengah daftar kata dan latih polanya:
    ```
-   grep -v -E '(kah|lah|pun|tah)$' latih.txt | awk 'NR%4==0' > sampel.txt
+   grep -v -E '(kah|lah|pun|tah)$' latih.txt | awk 'NR%2==0' > sampel.txt
    touch kosong.pat
    patgen sampel.txt kosong.pat id.pat id.tra < p3.txt
    ```
-   Pola di paket ini memakai sampel setengah (`NR%2==0`). Sertakan seluruh daftar bila waktu cukup.
+   Sertakan seluruh daftar bila waktu cukup.
    Untuk menambahkan seluruh kata kamus ke daftar pengecualian, set `MTI_LATIH=latih.txt` sebelum langkah 4.
 4. **Berkas akhir.** Jalankan `python3 finalisasi.py . . id.pat keluaran/`. Perintah ini menghasilkan:
    - `hyph-id-mti.pat`: pola dan pengecualian;

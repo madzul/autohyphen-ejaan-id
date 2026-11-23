@@ -51,8 +51,22 @@ if os.path.exists(akar):
             vocab.setdefault(f, 1e-8)
 
 
+GOLD = {}
+_gp = os.path.join(EVAL, 'gold.txt')
+if os.path.exists(_gp):
+    for line in open(_gp):
+        if line.strip():
+            h = line.split('|')[0].strip(); GOLD[h.replace('-', '')] = h
+
+
 def ref(w):
-    """Acuan kaidah: hanya untuk kata yang akarnya dikenal kamus."""
+    """Acuan kaidah: daftar uji tangan (gold.txt), atau penganalisis untuk kata yang akarnya dikenal kamus."""
+    if w in GOLD:
+        r, i = set(), 0
+        for ch in GOLD[w]:
+            if ch == '-': r.add(i)
+            else: i += 1
+        return {p for p in r if 2 <= p <= len(w) - 2}
     b = A.best(w)
     if b is None and w not in GOLDW:
         return None
@@ -81,8 +95,27 @@ def boleh(w):
 exc_mti = {}
 for w, r in refs.items():
     hp = set(H.points(w))
-    if hp - boleh(w) or len(r - hp) > 1:
+    if hp - boleh(w) or len(r - hp) > 0:
         exc_mti[w] = hy(w, r)
+
+# 1b) seluruh daftar latih (kamus Hunspell + bentuk berimbuhan): kata yang dipenggal salah oleh pola
+LATIH = os.environ.get('MTI_LATIH')
+n_latih = 0
+if LATIH and os.path.exists(LATIH):
+    for line in open(LATIH, encoding='utf-8'):
+        h = line.strip()
+        w = h.replace('-', '')
+        if not h or w in exc_mti or w in refs or re.search(r'(kah|lah|pun|tah)$', w):
+            continue
+        r, i = set(), 0
+        for ch in h:
+            if ch == '-': r.add(i)
+            else: i += 1
+        r = {p for p in r if 2 <= p <= len(w) - 2}
+        ok = r | {m.start() + 1 for m in re.finditer(r'(?=(ai|au|ei|oi))', w)}
+        hp = set(H.points(w))
+        if hp - ok:
+            exc_mti[w] = hy(w, r); n_latih += 1
 
 # 2) pengecualian untuk pola bawaan TeX hyph-id (pdfLaTeX/XeLaTeX)
 tp, te = load_tex('/usr/share/texlive/texmf-dist/tex/generic/hyph-utf8/patterns/tex/hyph-id.tex')
@@ -158,6 +191,6 @@ lap = ['Uji pemenggalan terhadap acuan kaidah EYD V (kata yang memuat titik peng
        *([stat('Pola autohyphen-id (hyph_id_ID-baku.dic)', Hyph(load_dic(BAKU)[0]))] if os.path.exists(BAKU) else []),
        stat('Pola MTI tanpa pengecualian', H),
        stat('Pola MTI + pengecualian', Hx), '',
-       f'pola: {len(pats)}, pengecualian MTI: {len(exc_mti)}, pengecualian pdfLaTeX: {len(exc_tex)}']
+       f'pola: {len(pats)}, pengecualian MTI: {len(exc_mti)} (termasuk {n_latih} dari daftar kata kamus), pengecualian pdfLaTeX: {len(exc_tex)}']
 open(os.path.join(OUT, 'laporan.txt'), 'w').write('\n'.join(lap) + '\n')
 print('\n'.join(lap))
