@@ -28,8 +28,10 @@ Akibatnya, mengaktifkan *Hyphenation: Automatic* pada teks berbahasa Indonesia t
 Untuk menyisipkan satu tanda secara manual:
 - **Windows:** tekan Ctrl+Alt+- (Ctrl, Alt, dan tanda minus). Di Word versi lama, Ctrl+- juga bisa dipakai.
 - **Mac:** tekan Cmd+Option+- (Cmd, Option, dan tanda minus).
-- Jangan pakai Ctrl+- atau Cmd+- di Word versi baru, karena pintasan itu kini memperkecil tampilan (*zoom out*).
-- Bila pintasan tidak bekerja, pakai menu Insert → Advanced Symbol → Special Characters → **Optional Hyphen**, atau buat pintasan sendiri lewat *Customize Keyboard*. Letak menu ini bisa sedikit berbeda antarversi Word.
+- Jangan pakai Ctrl+- atau Cmd+- di Word versi baru, karena pintasan itu kini memperkecil tampilan (*zoom out*). Sumber: [New zoom shortcuts in Word](https://insider.microsoft365.com/en-us/blog/new-zoom-shortcuts-in-word) (Microsoft 365 Insider).
+- Bila pintasan tidak bekerja, pakai menu lalu pilih **Optional Hyphen**, atau buat pintasan sendiri lewat *Customize Keyboard*. Letak menu ini bisa sedikit berbeda antarversi Word.
+  - Windows: Insert → Symbol → More Symbols → Special Characters.
+  - Mac: Insert → Advanced Symbol → Special Characters.
 
 ### 1.1 Pengaturan Word (sudah terpasang di templat)
 
